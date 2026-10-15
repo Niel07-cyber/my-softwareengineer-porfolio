@@ -17,6 +17,31 @@
 
 html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
 
+// split button: a lavender label next to a round arrow, as in the design reference
+.split-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-heading);
+  font-weight: 600;
+  cursor: pointer;
+
+  &__label {
+    padding: 0.8rem 1.5rem;
+    border-radius: 999px;
+    background: #e6e4f2;
+    color: var(--indigo);
+    font-size: 0.95rem;
+    transition: background 0.2s;
+  }
+  app-arrow { --arrow-size: 3rem; }
+  &:hover &__label { background: #d9d6f0; }
+  &:hover app-arrow { --arrow-bg: var(--coral); --arrow-nudge: 3px; }
+
+  &--sm &__label { padding: 0.45rem 1.05rem; font-size: 0.85rem; }
+  &--sm app-arrow { --arrow-size: 2.1rem; }
+}
+
 // scroll reveal: a quiet fade and lift, staggered with --d
 .reveal {
   opacity: 0;

@@ -1,21 +1,6 @@
 @let p = profile();
 
-<header class="nav">
-  <div class="container nav__inner">
-    <a href="#top" class="brand">
-      <span class="brand__mark" aria-hidden="true">{{ initials() }}</span>
-      <span>{{ p.name.split(' ')[0] }}<span class="brand__dot">.</span></span>
-    </a>
-    <nav aria-label="Main">
-      <ul class="nav__links">
-        @for (l of links; track l.href) {
-          <li><a [href]="l.href">{{ l.label }}</a></li>
-        }
-      </ul>
-    </nav>
-    <a href="#contact" class="btn btn--primary nav__cta">Hire me</a>
-  </div>
-</header>
+<app-site-header [home]="true" />
 
 <main id="top">
   <section class="hero">
@@ -55,6 +40,11 @@
           responsive Angular front-ends and well-structured NestJS back-ends, with a focus on
           performance, accessibility and maintainable code.
         </p>
+        <p>
+          Beyond the web, I engineer AI and data systems, from computer-vision models and inference
+          APIs to automated data pipelines. Having studied and worked across Ghana, Belgium, Germany
+          and France, I'm comfortable collaborating with international, cross-functional teams.
+        </p>
       </div>
 
       <figure class="about__photo">
@@ -67,9 +57,21 @@
     </div>
   </section>
 
-  <section id="education" class="section section--tint">
+  <section id="experience" class="section section--tint section--compact">
     <div class="container">
-      <h2 class="section__title">My <span>education</span></h2>
+      <div class="section__head">
+        <h2 class="section__title">Work <span>experience</span></h2>
+        <p class="section__hint">
+          Click on a company to view full details
+        </p>
+      </div>
+      <app-experience-summary [items]="p.experience" />
+    </div>
+  </section>
+
+  <section id="education" class="section">
+    <div class="container side-layout">
+      <h2 class="side-title">My <span>education</span></h2>
       <ol class="timeline">
         @for (e of p.education; track e.title) {
           <li class="timeline__item" appReveal [style.--d]="$index * 0.5 + 's'">
@@ -106,7 +108,7 @@
     </div>
   </section>
 
-  <section id="skills" class="section">
+  <section id="skills" class="section section--tint">
     <div class="container">
       <h2 class="section__title">Skills &amp; <span>tools</span></h2>
       <div class="grid grid--3">
@@ -122,7 +124,7 @@
     </div>
   </section>
 
-  <section id="projects" class="section section--tint">
+  <section id="projects" class="section">
     <div class="container">
       <h2 class="section__title">Selected <span>projects</span></h2>
       <div class="grid grid--3">
@@ -133,7 +135,7 @@
             <ul class="chips">
               @for (t of pr.tags; track t) { <li>{{ t }}</li> }
             </ul>
-            <span class="card__more">View project →</span>
+            <span class="split-btn split-btn--sm card__more"><span class="split-btn__label">View project</span><app-arrow /></span>
           </a>
         }
       </div>
@@ -149,13 +151,4 @@
   </section>
 </main>
 
-<footer class="footer">
-  <div class="container footer__inner">
-    <span>© {{ year }} {{ p.name }}</span>
-    <ul>
-      @for (s of p.socials; track s.label) {
-        <li><a [href]="s.url" target="_blank" rel="noopener">{{ s.label }}</a></li>
-      }
-    </ul>
-  </div>
-</footer>
+<app-site-footer />

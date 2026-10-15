@@ -194,7 +194,11 @@ function toVec(lat: number, lon: number, r: number): [number, number, number] {
     .tech.on .node { opacity: 1; transform: none; transition: opacity 0.6s ease calc(0.2s + var(--i) * 0.2s), transform 0.7s cubic-bezier(0.2, 1.4, 0.4, 1) calc(0.2s + var(--i) * 0.2s); }
     .tile {
       display: grid; place-items: center; width: 100%; height: 100%; border-radius: 13px;
-      background: rgba(255, 255, 255, 0.95); box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
+      border: 2.5px solid transparent;
+      background:
+        linear-gradient(#fff, #fff) padding-box,
+        linear-gradient(135deg, var(--coral), #6b65c4) border-box;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25);
       animation: bob 5s ease-in-out infinite; animation-delay: calc(var(--i) * -0.7s);
     }
     .tile img { width: 28px; height: 28px; object-fit: contain; display: block; }

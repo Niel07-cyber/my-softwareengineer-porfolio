@@ -5,6 +5,19 @@ export interface Project {
   link: string;
 }
 
+export interface Experience {
+  company: string;
+  mark: string;
+  kind?: 'company' | 'lab';
+  location?: string;
+  role?: string;
+  period?: string;
+  metrics?: { value: string; label: string }[];
+  highlights?: string[];
+  stack?: string[];
+  logo?: string;
+}
+
 export interface Education {
   period: string;
   title: string;
@@ -24,6 +37,7 @@ export interface Profile {
   socials: { label: string; url: string }[];
   stats: { value: string; label: string }[];
   skills: { group: string; items: string[] }[];
+  experience: Experience[];
   education: Education[];
   projects: Project[];
 }
@@ -37,6 +51,7 @@ export const profile: Profile = {
   socials: [
     { label: 'GitHub', url: 'https://github.com/' },
     { label: 'LinkedIn', url: 'https://linkedin.com/' },
+    { label: 'Instagram', url: 'https://www.instagram.com/' },
   ],
   stats: [
     { value: '3+', label: 'Years of experience' },
@@ -47,6 +62,81 @@ export const profile: Profile = {
     { group: 'Frontend', items: ['Angular', 'TypeScript', 'RxJS', 'SCSS'] },
     { group: 'Backend', items: ['NestJS', 'Node.js', 'REST', 'GraphQL'] },
     { group: 'Data & DevOps', items: ['PostgreSQL', 'MongoDB', 'Docker', 'CI/CD'] },
+  ],
+  experience: [
+    {
+      company: 'Alstom SA',
+      mark: 'AL',
+      logo: 'experience/alstom.svg',
+      location: 'Charleroi, Belgium',
+      role: 'Data & Backend Engineer',
+      period: 'Mar 2026 – Sep 2026',
+      metrics: [
+        { value: '45%', label: 'less manual overhead' },
+        { value: '80%+', label: 'test coverage' },
+        { value: '<5 min', label: 'multi-source data sync' },
+      ],
+      highlights: [
+        'Built full-stack platform to centralize engineering data and automate workflows, cutting manual overhead by 45%.',
+        'Automated scheduled Apache Airflow DAGs to sync OpenProject and multi-source data into PostgreSQL (<5 mins).',
+        'Designed modular architecture with 50+ tests (80%+ coverage), reducing application regressions by 35%.',
+        'Deployed containerized microservices to Debian Linux implementing enterprise OAuth2/PKCE and RBAC security.',
+      ],
+      stack: ['Python', 'FastAPI', 'React', 'TypeScript', 'Apache Airflow', 'PostgreSQL', 'Docker', 'Debian Linux', 'OAuth2 (PKCE)', 'JWT', 'JWKS', 'TOTP', 'RBAC', 'Redis', 'CI/CD', 'Git'],
+    },
+    {
+      company: 'Innovation in Medicine',
+      mark: 'IM',
+      logo: 'experience/innovation-in-medicine.png',
+      location: 'Mainz, Germany',
+      role: 'Full-Stack AI Systems Engineer',
+      period: 'Apr 2025 – Aug 2025',
+      metrics: [
+        { value: '92%+', label: 'prediction accuracy' },
+        { value: '20,000+', label: 'ultrasound frames curated' },
+        { value: '<1.5s', label: 'inference latency' },
+      ],
+      highlights: [
+        'Developed CNN and LightGBM models for echocardiogram cardiac prediction (92%+ accuracy).',
+        'Engineered automated preprocessing and Image Quality Assessment pipelines to curate 20,000+ ultrasound frames.',
+        'Built containerized Flask REST API with CORS for low-latency (<1.5s) inference on a gamified platform.',
+        'Redesigned UI and migrated codebase from Vue.js to Next.js to align architecture, boosting performance by 35%.',
+      ],
+      stack: ['Python', 'LightGBM', 'TensorFlow', 'PyTorch', 'Flask', 'Docker', 'Next.js', 'REST APIs', 'Scikit-learn', 'CNNs', 'Computer Vision'],
+    },
+    {
+      company: 'Volta River Authority',
+      mark: 'VRA',
+      logo: 'experience/vra.png',
+      location: 'Accra, Ghana',
+      role: 'Software Developer Intern',
+      period: 'Aug 2023 – Jan 2024',
+      metrics: [
+        { value: '60%', label: 'less physical storage' },
+        { value: '99.9%', label: 'uptime maintained' },
+        { value: '<2s', label: 'chatbot latency' },
+      ],
+      highlights: [
+        'Built a document tracking platform with Azure to digitize physical archives, cutting storage by 60%.',
+        'Hardened internal data governance via least-privilege backend auth and RBAC across 5+ departments.',
+        'Engineered backend services for an MIS chatbot, enabling 24/7 public self-service with <2s latency.',
+        'Partnered with DevOps and product teams to establish logging and telemetry, maintaining 99.9% uptime.',
+      ],
+      stack: ['JavaScript', 'React', 'Material UI', 'Node.js', 'Express.js', 'Azure Blob', 'PostgreSQL', 'JWT'],
+    },
+    {
+      company: 'Dreamosoft',
+      mark: 'DS',
+      location: 'Remote',
+      logo: 'experience/dreamosoft.svg',
+    },
+    {
+      company: 'LITL Lab',
+      mark: 'LITL',
+      kind: 'lab',
+      location: 'Lille, France',
+      logo: 'experience/litl.png',
+    },
   ],
   education: [
     {

@@ -1,5 +1,9 @@
 import { Component, DestroyRef, afterNextRender, computed, inject, signal } from '@angular/core';
 import { HeroScene } from './hero-scene';
+import { SiteFooter } from '../../layout/site-footer';
+import { SiteHeader } from '../../layout/site-header';
+import { Arrow } from '../../shared/arrow';
+import { ExperienceSummary } from '../../shared/experience-summary';
 import { Reveal } from '../../core/reveal.directive';
 import { ProfileService } from '../../core/profile.service';
 
@@ -7,7 +11,7 @@ const GREETING_MS = 5_000;
 const ERASE_MS = 500;
 
 @Component({
-  imports: [HeroScene, Reveal],
+  imports: [HeroScene, Reveal, ExperienceSummary, SiteHeader, SiteFooter, Arrow],
   host: { '(click)': 'onAnchorClick($event)' },
   selector: 'app-home',
   templateUrl: './home.html',
@@ -33,6 +37,7 @@ export class Home {
     return { main, second };
   });
   protected readonly photoMissing = signal(false);
+
 
   /**
    * In-page links scroll smoothly without writing `#section` into the address bar, so a refresh
@@ -94,13 +99,4 @@ export class Home {
       })();
     });
   }
-  protected readonly year = new Date().getFullYear();
-  protected readonly links = [
-    { label: 'About', href: '#about' },
-    { label: 'Education', href: '#education' },
-    { label: 'Skills', href: '#skills' },
-    { label: 'Work', href: '#work' },
-    { label: 'Projects', href: '#projects' },
-    { label: 'Contact', href: '#contact' },
-  ];
 }
