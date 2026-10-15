@@ -2,7 +2,10 @@
 
 <header class="nav">
   <div class="container nav__inner">
-    <a href="#top" class="brand">{{ p.name.split(' ')[0] }}<span>.</span></a>
+    <a href="#top" class="brand">
+      <span class="brand__mark" aria-hidden="true">{{ initials() }}</span>
+      <span>{{ p.name.split(' ')[0] }}<span class="brand__dot">.</span></span>
+    </a>
     <nav aria-label="Main">
       <ul class="nav__links">
         @for (l of links; track l.href) {
@@ -18,8 +21,9 @@
   <section class="hero">
     <div class="container hero__inner">
       <div class="hero__copy">
-        <p class="eyebrow">Hello, I'm {{ p.name }} 👋</p>
-        <h1>{{ p.role }} <em>crafting</em> modern web experiences.</h1>
+        <p class="status"><i></i>Available for new projects</p>
+        <h1>I build the web, <em>front to back.</em></h1>
+        <p class="hero__who"><strong>{{ p.name }}</strong> · {{ p.role }}</p>
         <p class="hero__lead">{{ p.tagline }}</p>
         <div class="hero__actions">
           <a href="#work" class="btn btn--primary">View my work</a>
@@ -32,18 +36,15 @@
         </ul>
       </div>
 
-      <div class="hero__visual" aria-hidden="true">
-        <div class="code">
-          <div class="code__bar"><i></i><i></i><i></i></div>
-<pre><span class="k">const</span> developer = &#123;
-  stack: [<span class="s">'Angular'</span>, <span class="s">'NestJS'</span>],
-  passion: <span class="s">'clean code'</span>,
-  available: <span class="k">true</span>,
-&#125;;</pre>
-        </div>
-        <div class="blob"></div>
+      <div class="hero__visual">
+        <app-hero-scene [tech]="techStack()" />
       </div>
     </div>
+
+    <a href="#about" class="scroll" aria-label="Scroll down">
+      <span class="scroll__mouse"><i></i></span>
+      <span class="scroll__text">Scroll down</span>
+    </a>
   </section>
 
   <section id="about" class="section">
