@@ -1,0 +1,112 @@
+@let p = profile();
+
+<header class="nav">
+  <div class="container nav__inner">
+    <a href="#top" class="brand">{{ p.name.split(' ')[0] }}<span>.</span></a>
+    <nav aria-label="Main">
+      <ul class="nav__links">
+        @for (l of links; track l.href) {
+          <li><a [href]="l.href">{{ l.label }}</a></li>
+        }
+      </ul>
+    </nav>
+    <a href="#contact" class="btn btn--primary nav__cta">Hire me</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <div class="container hero__inner">
+      <div class="hero__copy">
+        <p class="eyebrow">Hello, I'm {{ p.name }} 👋</p>
+        <h1>{{ p.role }} <em>crafting</em> modern web experiences.</h1>
+        <p class="hero__lead">{{ p.tagline }}</p>
+        <div class="hero__actions">
+          <a href="#work" class="btn btn--primary">View my work</a>
+          <a href="#contact" class="btn btn--ghost">Get in touch</a>
+        </div>
+        <ul class="stats">
+          @for (s of p.stats; track s.label) {
+            <li><strong>{{ s.value }}</strong><span>{{ s.label }}</span></li>
+          }
+        </ul>
+      </div>
+
+      <div class="hero__visual" aria-hidden="true">
+        <div class="code">
+          <div class="code__bar"><i></i><i></i><i></i></div>
+<pre><span class="k">const</span> developer = &#123;
+  stack: [<span class="s">'Angular'</span>, <span class="s">'NestJS'</span>],
+  passion: <span class="s">'clean code'</span>,
+  available: <span class="k">true</span>,
+&#125;;</pre>
+        </div>
+        <div class="blob"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="about" class="section">
+    <div class="container about">
+      <h2 class="section__title">About <span>me</span></h2>
+      <p>
+        I'm a full-stack developer who loves turning ideas into reliable products. I build
+        responsive Angular front-ends and well-structured NestJS back-ends, with a focus on
+        performance, accessibility and maintainable code.
+      </p>
+    </div>
+  </section>
+
+  <section id="skills" class="section section--tint">
+    <div class="container">
+      <h2 class="section__title">Skills &amp; <span>tools</span></h2>
+      <div class="grid grid--3">
+        @for (g of p.skills; track g.group) {
+          <article class="card">
+            <h3>{{ g.group }}</h3>
+            <ul class="chips">
+              @for (i of g.items; track i) { <li>{{ i }}</li> }
+            </ul>
+          </article>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="work" class="section">
+    <div class="container">
+      <h2 class="section__title">Selected <span>work</span></h2>
+      <div class="grid grid--3">
+        @for (pr of p.projects; track pr.title) {
+          <a class="card card--project" [href]="pr.link">
+            <h3>{{ pr.title }}</h3>
+            <p>{{ pr.description }}</p>
+            <ul class="chips">
+              @for (t of pr.tags; track t) { <li>{{ t }}</li> }
+            </ul>
+            <span class="card__more">View project →</span>
+          </a>
+        }
+      </div>
+    </div>
+  </section>
+
+  <section id="contact" class="cta">
+    <div class="container cta__inner">
+      <h2>Have a project in mind?</h2>
+      <p>Let's build something great together.</p>
+      <a class="btn btn--primary" [href]="'mailto:' + p.email">{{ p.email }}</a>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="container footer__inner">
+    <span>© {{ year }} {{ p.name }}</span>
+    <ul>
+      @for (s of p.socials; track s.label) {
+        <li><a [href]="s.url" target="_blank" rel="noopener">{{ s.label }}</a></li>
+      }
+    </ul>
+  </div>
+</footer>
