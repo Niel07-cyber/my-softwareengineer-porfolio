@@ -17,19 +17,19 @@ export interface Profile {
 }
 
 export const profile: Profile = {
-  name: 'Your Name',
+  name: 'Othniel Aryee',
   role: 'Full-Stack Software Developer',
   tagline:
     'I design and build fast, scalable web applications — from polished Angular interfaces to robust NestJS APIs.',
-  email: 'odeifiankoworlasi@gmail.com',
+  email: 'aryeeothniel07@gmail.com',
   socials: [
     { label: 'GitHub', url: 'https://github.com/' },
     { label: 'LinkedIn', url: 'https://linkedin.com/' },
   ],
   stats: [
-    { value: '5+', label: 'Years experience' },
-    { value: '30+', label: 'Projects shipped' },
-    { value: '20+', label: 'Happy clients' },
+    { value: '3+', label: 'Years of experience' },
+    { value: '4', label: 'Countries worked in' },
+    { value: '12+', label: 'Technologies used' },
   ],
   skills: [
     { group: 'Frontend', items: ['Angular', 'TypeScript', 'RxJS', 'SCSS'] },
