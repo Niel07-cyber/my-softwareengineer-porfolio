@@ -2,6 +2,17 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { catchError, of } from 'rxjs';
 
+export interface Education {
+  period: string;
+  title: string;
+  institution: string;
+  location: string;
+  description?: string;
+  badge?: string;
+  logo?: string;
+  logoBg?: string;
+}
+
 export interface Profile {
   name: string;
   role: string;
@@ -10,12 +21,13 @@ export interface Profile {
   socials: { label: string; url: string }[];
   stats: { value: string; label: string }[];
   skills: { group: string; items: string[] }[];
+  education: Education[];
   projects: { title: string; description: string; tags: string[]; link: string }[];
 }
 
 const FALLBACK: Profile = {
   name: 'Othniel Aryee',
-  role: 'Full-Stack Software Developer',
+  role: 'Full Stack Software Developer & AI Systems Engineer',
   tagline:
     'I design and build fast, scalable web applications — from polished Angular interfaces to robust NestJS APIs.',
   email: 'aryeeothniel07@gmail.com',
@@ -32,6 +44,25 @@ const FALLBACK: Profile = {
     { group: 'Frontend', items: ['Angular', 'TypeScript', 'RxJS', 'SCSS'] },
     { group: 'Backend', items: ['NestJS', 'Node.js', 'REST', 'GraphQL'] },
     { group: 'Data & DevOps', items: ['PostgreSQL', 'MongoDB', 'Docker', 'CI/CD'] },
+  ],
+  education: [
+    {
+      period: 'Graduated September 2026',
+      title: 'MSc Software Engineering',
+      institution: 'Institut Supérieur de l’Électronique et du Numérique (JUNIA)',
+      location: 'Lille, France',
+      badge: 'Erasmus Mundus Scholarship Award',
+      logo: 'education/junia.svg',
+      logoBg: '#342f70',
+    },
+    {
+      period: 'January 2022 – August 2024',
+      title: 'Bachelor of Science in Computer Science',
+      institution: 'Kwame Nkrumah University of Science and Technology (KNUST)',
+      location: 'Kumasi, Ghana',
+      logo: 'education/knust.jpg',
+      logoBg: '#ffffff',
+    },
   ],
   projects: [
     { title: 'Project One', description: 'A short description of what this project does and the problem it solves.', tags: ['Angular', 'NestJS'], link: '#' },
