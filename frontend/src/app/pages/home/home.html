@@ -21,12 +21,11 @@
   <section class="hero">
     <div class="container hero__inner">
       <div class="hero__copy">
-        <p class="status"><i></i>Available for new projects</p>
-        <h1>I build the web, <em>front to back.</em></h1>
-        <p class="hero__who"><strong>{{ p.name }}</strong> · {{ p.role }}</p>
+        <p class="status" [attr.aria-label]="greeting()"><span aria-hidden="true">{{ typed() }}</span><i class="status__caret" aria-hidden="true"></i></p>
+        <h1>{{ roleParts().main }} <em>&amp; {{ roleParts().second }}</em></h1>
         <p class="hero__lead">{{ p.tagline }}</p>
         <div class="hero__actions">
-          <a href="#work" class="btn btn--primary">View my work</a>
+          <a href="#projects" class="btn btn--primary">View my projects</a>
           <a href="#contact" class="btn btn--ghost">Get in touch</a>
         </div>
         <ul class="stats">
@@ -47,18 +46,67 @@
     </a>
   </section>
 
-  <section id="about" class="section">
+  <section id="about" class="section section--compact">
     <div class="container about">
-      <h2 class="section__title">About <span>me</span></h2>
-      <p>
-        I'm a full-stack developer who loves turning ideas into reliable products. I build
-        responsive Angular front-ends and well-structured NestJS back-ends, with a focus on
-        performance, accessibility and maintainable code.
-      </p>
+      <div class="about__text">
+        <h2 class="section__title">About <span>me</span></h2>
+        <p>
+          I'm a full-stack developer who loves turning ideas into reliable products. I build
+          responsive Angular front-ends and well-structured NestJS back-ends, with a focus on
+          performance, accessibility and maintainable code.
+        </p>
+      </div>
+
+      <figure class="about__photo">
+        @if (!photoMissing()) {
+          <img src="profile.jpg" [alt]="'Portrait of ' + p.name" (error)="photoMissing.set(true)" />
+        } @else {
+          <span class="about__initials" aria-hidden="true">{{ initials() }}</span>
+        }
+      </figure>
     </div>
   </section>
 
-  <section id="skills" class="section section--tint">
+  <section id="education" class="section section--tint">
+    <div class="container">
+      <h2 class="section__title">My <span>education</span></h2>
+      <ol class="timeline">
+        @for (e of p.education; track e.title) {
+          <li class="timeline__item" appReveal [style.--d]="$index * 0.5 + 's'">
+            <span class="timeline__period">{{ e.period }}</span>
+            <article class="card timeline__card">
+              @if (e.badge) {
+                <span class="timeline__badge">
+                  <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
+                    <path d="m12 2 2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8L12 2Z" fill="currentColor" />
+                  </svg>
+                  {{ e.badge }}
+                </span>
+              }
+              @if (e.logo) {
+                <span class="timeline__logo" [style.background]="e.logoBg ?? '#fff'">
+                  <img [src]="e.logo" [alt]="e.institution + ' logo'" />
+                </span>
+              }
+              <div class="timeline__body">
+                <h3>{{ e.title }}</h3>
+                <p class="timeline__school">{{ e.institution }}</p>
+                <p class="timeline__place">
+                  <svg viewBox="0 0 24 24" width="15" height="15" aria-hidden="true">
+                    <path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" fill="currentColor" />
+                  </svg>
+                  {{ e.location }}
+                </p>
+                @if (e.description) { <p>{{ e.description }}</p> }
+              </div>
+            </article>
+          </li>
+        }
+      </ol>
+    </div>
+  </section>
+
+  <section id="skills" class="section">
     <div class="container">
       <h2 class="section__title">Skills &amp; <span>tools</span></h2>
       <div class="grid grid--3">
@@ -74,9 +122,9 @@
     </div>
   </section>
 
-  <section id="work" class="section">
+  <section id="projects" class="section section--tint">
     <div class="container">
-      <h2 class="section__title">Selected <span>work</span></h2>
+      <h2 class="section__title">Selected <span>projects</span></h2>
       <div class="grid grid--3">
         @for (pr of p.projects; track pr.title) {
           <a class="card card--project" [href]="pr.link">
