@@ -128,16 +128,12 @@
     <div class="container">
       <h2 class="section__title">Selected <span>projects</span></h2>
       <div class="grid grid--3">
-        @for (pr of p.projects; track pr.title) {
-          <a class="card card--project" [href]="pr.link">
-            <h3>{{ pr.title }}</h3>
-            <p>{{ pr.description }}</p>
-            <ul class="chips">
-              @for (t of pr.tags; track t) { <li>{{ t }}</li> }
-            </ul>
-            <span class="split-btn split-btn--sm card__more"><span class="split-btn__label">View project</span><app-arrow /></span>
-          </a>
+        @for (pr of p.projects.slice(0, 3); track pr.title; let i = $index) {
+          <app-project-card [project]="pr" [index]="i" />
         }
+      </div>
+      <div class="section__more">
+        <a routerLink="/projects" class="split-btn"><span class="split-btn__label">View all projects</span><app-arrow /></a>
       </div>
     </div>
   </section>

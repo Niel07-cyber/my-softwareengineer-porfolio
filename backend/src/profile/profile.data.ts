@@ -3,12 +3,19 @@ export interface Project {
   description: string;
   tags: string[];
   link: string;
+  category?: string;
+  year?: string;
+  featured?: boolean;
+  image?: string;
 }
 
 export interface Experience {
   company: string;
   mark: string;
   kind?: 'company' | 'lab';
+  tag?: string; // label shown next to the role, e.g. 'YES Projet' (default for labs: 'Research lab')
+  employment?: string;
+  fullName?: string;
   location?: string;
   role?: string;
   period?: string;
@@ -69,7 +76,7 @@ export const profile: Profile = {
       mark: 'AL',
       logo: 'experience/alstom.svg',
       location: 'Charleroi, Belgium',
-      role: 'Data & Backend Engineer',
+      role: 'Software Engineer',
       period: 'Mar 2026 – Sep 2026',
       metrics: [
         { value: '45%', label: 'less manual overhead' },
@@ -83,6 +90,22 @@ export const profile: Profile = {
         'Deployed containerized microservices to Debian Linux implementing enterprise OAuth2/PKCE and RBAC security.',
       ],
       stack: ['Python', 'FastAPI', 'React', 'TypeScript', 'Apache Airflow', 'PostgreSQL', 'Docker', 'Debian Linux', 'OAuth2 (PKCE)', 'JWT', 'JWKS', 'TOTP', 'RBAC', 'Redis', 'CI/CD', 'Git'],
+    },
+    {
+      company: 'LITL Lab',
+      mark: 'LITL',
+      logo: 'experience/litl.png',
+      fullName: 'Laboratoire Interdisciplinaire des Transitions de Lille',
+      kind: 'lab',
+      tag: 'YES Projet',
+      employment: 'Indirect contract',
+      location: 'Lille, France',
+      role: 'Software Engineer',
+      period: 'Nov 2025 – Feb 2026',
+      highlights: [
+        'Redesign and optimization of the LITL laboratory website to improve usability and accessibility.',
+        'Implemented modern web technologies and responsive design for better performance and user experience.',
+      ],
     },
     {
       company: 'Innovation in Medicine',
@@ -105,6 +128,18 @@ export const profile: Profile = {
       stack: ['Python', 'LightGBM', 'TensorFlow', 'PyTorch', 'Flask', 'Docker', 'Next.js', 'REST APIs', 'Scikit-learn', 'CNNs', 'Computer Vision'],
     },
     {
+      company: 'Dreamosoft',
+      mark: 'DS',
+      logo: 'experience/dreamosoft.svg',
+      location: 'Remote, Ghana',
+      role: 'Frontend Developer',
+      period: 'Jan 2025 – Jul 2025',
+      highlights: [
+        'Built responsive and modern user interfaces for fast-delivery MVPs and custom software platforms.',
+        'Collaborated with backend and product teams to ship scalable, high-performance features aligned with client needs.',
+      ],
+    },
+    {
       company: 'Volta River Authority',
       mark: 'VRA',
       logo: 'experience/vra.png',
@@ -123,19 +158,6 @@ export const profile: Profile = {
         'Partnered with DevOps and product teams to establish logging and telemetry, maintaining 99.9% uptime.',
       ],
       stack: ['JavaScript', 'React', 'Material UI', 'Node.js', 'Express.js', 'Azure Blob', 'PostgreSQL', 'JWT'],
-    },
-    {
-      company: 'Dreamosoft',
-      mark: 'DS',
-      location: 'Remote',
-      logo: 'experience/dreamosoft.svg',
-    },
-    {
-      company: 'LITL Lab',
-      mark: 'LITL',
-      kind: 'lab',
-      location: 'Lille, France',
-      logo: 'experience/litl.png',
     },
   ],
   education: [
@@ -158,23 +180,12 @@ export const profile: Profile = {
     },
   ],
   projects: [
-    {
-      title: 'Project One',
-      description: 'A short description of what this project does and the problem it solves.',
-      tags: ['Angular', 'NestJS'],
-      link: '#',
-    },
-    {
-      title: 'Project Two',
-      description: 'A short description of what this project does and the problem it solves.',
-      tags: ['TypeScript', 'PostgreSQL'],
-      link: '#',
-    },
-    {
-      title: 'Project Three',
-      description: 'A short description of what this project does and the problem it solves.',
-      tags: ['Docker', 'AWS'],
-      link: '#',
-    },
+    { title: 'Project One', description: 'A short description of what this project does and the problem it solves.', tags: ['Angular', 'NestJS'], link: '#', category: 'Web', year: '2026', featured: true },
+    { title: 'Project Two', description: 'A short description of what this project does and the problem it solves.', tags: ['TypeScript', 'PostgreSQL'], link: '#', category: 'Backend', year: '2025' },
+    { title: 'Project Three', description: 'A short description of what this project does and the problem it solves.', tags: ['Docker', 'AWS'], link: '#', category: 'Cloud', year: '2025' },
+    { title: 'Project Four', description: 'A short description of what this project does and the problem it solves.', tags: ['Python', 'TensorFlow'], link: '#', category: 'AI', year: '2025' },
+    { title: 'Project Five', description: 'A short description of what this project does and the problem it solves.', tags: ['React', 'Next.js'], link: '#', category: 'Web', year: '2024' },
+    { title: 'Project Six', description: 'A short description of what this project does and the problem it solves.', tags: ['Airflow', 'PostgreSQL'], link: '#', category: 'Data', year: '2026' },
+    { title: 'Project Seven', description: 'A short description of what this project does and the problem it solves.', tags: ['Flask', 'PyTorch'], link: '#', category: 'AI', year: '2025' },
   ],
 };

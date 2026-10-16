@@ -40,6 +40,7 @@ html { scroll-behavior: smooth; scroll-padding-top: 4.5rem; }
 
   &--sm &__label { padding: 0.45rem 1.05rem; font-size: 0.85rem; }
   &--sm app-arrow { --arrow-size: 2.1rem; }
+  &--back:hover app-arrow { --arrow-nudge: -3px; }
 }
 
 // scroll reveal: a quiet fade and lift, staggered with --d

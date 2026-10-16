@@ -26,7 +26,7 @@ import { Tilt } from '../core/tilt.directive';
     </p>
 
     <ul class="logo-wall">
-      @for (x of items(); track x.company) {
+      @for (x of shown(); track x.company) {
         <li class="logo-item" appReveal [style.--d]="$index * 0.25 + 's'">
           <a class="logo-item__link" [routerLink]="['/experience', slug(x.company)]" [attr.aria-label]="x.company + ': view experience details'">
             <div class="frame" appTilt>
@@ -37,29 +37,18 @@ import { Tilt } from '../core/tilt.directive';
               }
             </div>
             <strong class="logo-item__name">{{ x.company }}</strong>
-            @if (x.location) {
-              <span class="logo-item__meta">
-                <svg viewBox="0 0 24 24" width="14" height="14" aria-hidden="true">
-                  <path d="M12 2a7 7 0 0 0-7 7c0 5.2 7 13 7 13s7-7.8 7-13a7 7 0 0 0-7-7Zm0 9.5A2.5 2.5 0 1 1 12 6.5a2.5 2.5 0 0 1 0 5Z" fill="currentColor" />
-                </svg>
-                {{ x.location }}
-              </span>
-            }
-            @if (x.kind === 'lab') {
-              <span class="logo-item__kind">Research lab</span>
-            }
           </a>
         </li>
       }
+      <li class="logo-item logo-item--more" appReveal [style.--d]="shown().length * 0.25 + 's'">
+        <a class="split-btn more-btn" routerLink="/experience" aria-label="View all my work experiences">
+          <span class="split-btn__label">Explore it all</span><app-arrow />
+        </a>
+      </li>
     </ul>
-
-    <div class="more">
-      <a routerLink="/experience" class="split-btn"><span class="split-btn__label">View all my work experiences</span><app-arrow /></a>
-    </div>
   `,
   styles: `
     :host { display: block; }
-    .more { display: flex; justify-content: center; margin-top: 1.5rem; }
 .xp-lead {
   max-width: 44rem;
   margin: 0 0 1.5rem;
@@ -79,9 +68,8 @@ import { Tilt } from '../core/tilt.directive';
 
   // wide screens: one row, with a thin line threading the frames together
   @media (min-width: 900px) {
-    grid-auto-flow: column;
-    grid-auto-columns: 1fr;
-    grid-template-columns: none;
+    // three logos share the width; the last column is just wide enough for the button
+    grid-template-columns: repeat(3, 1fr) auto;
   }
 }
 
@@ -107,6 +95,8 @@ import { Tilt } from '../core/tilt.directive';
       transition: transform 0.8s ease calc(var(--d, 0s) + 0.5s);
     }
     &.reveal--in:not(:last-child)::after { transform: scaleX(1); }
+    // the line before the button runs right up to it (the button sits on top of the end)
+    &:nth-last-child(2)::after { width: calc(50% + 1.5rem + var(--more-gap) + 3rem); }
   }
 
   &__link {
@@ -122,10 +112,16 @@ import { Tilt } from '../core/tilt.directive';
   &__link:hover .logo-item__name { color: var(--coral); }
   &__link:focus-visible { outline: 3px solid var(--coral); outline-offset: 6px; }
 
-  &__name { margin-top: 0.45rem; transition: color 0.2s; color: var(--indigo); font-family: var(--font-heading); font-size: 1.05rem; }
+  &__name { margin-top: 0.45rem; transition: color 0.2s; color: var(--indigo); font-family: var(--font-heading); font-size: 1.4rem; font-weight: 700; }
   &__meta { display: inline-flex; align-items: center; gap: 0.3rem; color: var(--muted); font-size: 0.88rem; svg { color: var(--coral); } }
   &__kind { margin-top: 0.2rem; padding: 0.15rem 0.65rem; border-radius: 999px; background: rgba(52, 47, 112, 0.08); color: var(--indigo); font: 600 0.72rem var(--font-heading); }
 }
+
+.logo-item--more { align-content: start; }
+@media (min-width: 900px) { .logo-wall { --more-gap: 6rem; } .logo-item--more { padding-left: var(--more-gap); } }
+.more-btn { position: relative; z-index: 1; margin-top: 27px; }
+.more-btn .split-btn__label { padding: 1rem 1.9rem; font-size: 1.1rem; }
+.more-btn app-arrow { --arrow-size: 3.4rem; } // centres the button on the dashed line
 
 .frame {
   position: relative;
@@ -173,6 +169,8 @@ import { Tilt } from '../core/tilt.directive';
 export class ExperienceSummary {
   readonly items = input.required<Experience[]>();
   protected readonly slug = slug;
+  /** the home page only previews the three most recent; the full list lives on the Work experience page */
+  protected readonly shown = computed(() => this.items().slice(0, 3));
 
   // "4 companies and 1 lab across 4 countries", worked out from the list
   protected readonly summary = computed(() => {

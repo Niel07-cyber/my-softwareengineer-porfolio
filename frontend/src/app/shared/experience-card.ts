@@ -25,7 +25,7 @@ import { slug } from './slug';
             {{ e.period }}
           </span>
         } @else if (e.kind === 'lab') {
-          <span class="xp__tag">Research lab</span>
+          <span class="xp__tag">{{ e.tag ?? 'Research lab' }}</span>
         }
       </header>
 
@@ -33,7 +33,7 @@ import { slug } from './slug';
       <p class="xp__role">
         {{ e.role ?? 'Details coming soon' }}
         @if (e.kind === 'lab' && e.period) {
-          <span class="xp__tag">Research lab</span>
+          <span class="xp__tag">{{ e.tag ?? 'Research lab' }}</span>
         }
       </p>
 
