@@ -303,12 +303,6 @@
   h3 { color: var(--indigo); font-size: 1.25rem; margin-bottom: 1rem; }
   p { color: var(--muted); margin: 0 0 1rem; }
 
-  &--project { display: flex; flex-direction: column; }
-  &--project:hover { border-color: var(--coral); }
-  &--project:hover .split-btn__label { background: #d9d6f0; }
-  &--project:hover app-arrow { --arrow-bg: var(--coral); --arrow-nudge: 3px; }
-  &--project .chips { margin-bottom: 1.25rem; }
-  &__more { margin: auto 0 0 auto; } // pinned to the bottom-right of the card
 }
 
 .chips {
@@ -362,3 +356,5 @@
   .side-title { writing-mode: horizontal-tb; transform: none; position: static; padding: 0 0 0 1rem; margin-bottom: 0.5rem; }
 }
 
+
+.section__more { display: flex; justify-content: center; margin-top: 2rem; }

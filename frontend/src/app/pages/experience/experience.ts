@@ -1,31 +1,27 @@
-import { Component, inject } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { ProfileService } from '../../core/profile.service';
 import { SiteFooter } from '../../layout/site-footer';
 import { SiteHeader } from '../../layout/site-header';
 import { Arrow } from '../../shared/arrow';
-import { ExperienceCard } from '../../shared/experience-card';
+import { CompanyIndex } from '../../shared/company-index';
 
 @Component({
   selector: 'app-experience-page',
-  imports: [SiteHeader, SiteFooter, ExperienceCard, RouterLink, Arrow],
+  imports: [SiteHeader, SiteFooter, CompanyIndex, RouterLink, Arrow],
   template: `
     <app-site-header />
 
     <main>
-      <section class="page-hero">
+      <section class="intro">
         <div class="container">
-          <a routerLink="/" fragment="experience" class="page-hero__back"><app-arrow dir="left" tone="light" />Back to home</a>
-          <h1>Work <em>experience</em></h1>
-          <p>Pick a company to explore what I built there.</p>
-        </div>
-      </section>
-
-      <section class="list">
-        <div class="container list__inner">
-          @for (x of profile().experience; track x.company) {
-            <app-experience-card [exp]="x" />
-          }
+          <div class="intro__top">
+            <a routerLink="/" fragment="experience" class="split-btn split-btn--sm split-btn--back"><app-arrow dir="left" /><span class="split-btn__label">Back to home</span></a>
+            <p class="intro__eyebrow"><span>{{ stats().places }}</span> places · <span>{{ stats().countries }}</span> countries</p>
+          </div>
+          <h1>Work experience<sup>{{ stats().places }}</sup></h1>
+          <p class="intro__lead">Where I've worked and what I built there. Hover a name, click to open the story.</p>
+          <app-company-index [items]="profile().experience" />
         </div>
       </section>
     </main>
@@ -33,22 +29,20 @@ import { ExperienceCard } from '../../shared/experience-card';
     <app-site-footer />
   `,
   styles: `
-    .page-hero {
-      background: radial-gradient(circle at 80% 20%, #4a43a0 0%, var(--indigo) 45%, var(--indigo-deep) 100%);
-      color: var(--white);
-      padding-block: clamp(2.5rem, 6vw, 4.5rem);
-    }
-    .page-hero__back { display: inline-flex; align-items: center; gap: 0.6rem; margin-bottom: 1.5rem; --arrow-size: 2rem; color: rgba(255, 255, 255, 0.7); font-weight: 500; }
-    .page-hero__back:hover { color: var(--white); }
-    .page-hero__back:hover app-arrow { --arrow-bg: var(--coral); --arrow-fg: var(--white); --arrow-nudge: 3px; }
-    h1 { font-size: clamp(2.2rem, 5vw, 3.4rem); font-weight: 800; margin: 0 0 0.75rem; }
-    h1 em { font-style: normal; color: var(--coral); }
-    .page-hero p { margin: 0; max-width: 36rem; color: rgba(255, 255, 255, 0.8); font-size: 1.1rem; }
-
-    .list { background: var(--surface); padding-block: clamp(2rem, 5vw, 3.5rem) clamp(3rem, 7vw, 5rem); }
-    .list__inner { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 20rem), 1fr)); gap: 1.5rem; }
+    .intro { background: var(--white); padding-block: clamp(2rem, 5vw, 3.5rem) clamp(1.5rem, 4vw, 2.5rem); }
+    .intro__top { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.75rem; margin-bottom: clamp(1.5rem, 4vw, 2.75rem); }
+    .intro__eyebrow { margin: 0; color: var(--muted); font: 600 0.85rem var(--font-heading); letter-spacing: 0.14em; text-transform: uppercase; }
+    .intro__eyebrow span { color: var(--coral); }
+    h1 { margin: 0; font-size: clamp(1.4rem, 2.6vw, 2rem); font-weight: 700; color: var(--indigo); }
+    h1 sup { margin-left: 0.3rem; color: var(--coral); font-size: 0.55em; }
+    .intro__lead { margin: 0.4rem 0 clamp(1.25rem, 3vw, 2rem); color: var(--muted); }
   `,
 })
 export class ExperiencePage {
   protected readonly profile = inject(ProfileService).profile;
+  protected readonly stats = computed(() => {
+    const xp = this.profile().experience ?? [];
+    const countries = new Set(xp.map((x) => x.location?.split(',').pop()?.trim()).filter((c) => c && c.toLowerCase() !== 'remote'));
+    return { places: xp.length, countries: countries.size };
+  });
 }

@@ -1,6 +1,6 @@
 import { NgTemplateOutlet } from '@angular/common';
 import { Component, computed, inject, input } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { RouterLink, RouterLinkActive } from '@angular/router';
 import { ProfileService } from '../core/profile.service';
 
 const SECTIONS = [
@@ -15,7 +15,7 @@ const SECTIONS = [
 /** On the home page the links are in-page anchors; on other pages they route back to the home sections. */
 @Component({
   selector: 'app-site-header',
-  imports: [RouterLink, NgTemplateOutlet],
+  imports: [RouterLink, RouterLinkActive, NgTemplateOutlet],
   template: `
     <ng-template #brandInner>
       <span class="brand__mark" aria-hidden="true">{{ initials() }}</span>
@@ -36,8 +36,8 @@ const SECTIONS = [
               <li>
                 @if (home()) {
                   <a [href]="'#' + l.id">{{ l.label }}</a>
-                } @else if (l.id === 'experience') {
-                  <a routerLink="/experience" aria-current="page">{{ l.label }}</a>
+                } @else if (l.id === 'experience' || l.id === 'projects') {
+                  <a [routerLink]="'/' + l.id" routerLinkActive ariaCurrentWhenActive="page">{{ l.label }}</a>
                 } @else {
                   <a routerLink="/" [fragment]="l.id">{{ l.label }}</a>
                 }

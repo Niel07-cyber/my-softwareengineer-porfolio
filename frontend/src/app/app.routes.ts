@@ -12,5 +12,10 @@ export const routes: Routes = [
     path: 'experience/:slug',
     loadComponent: () => import('./pages/experience-detail/experience-detail').then((m) => m.ExperienceDetailPage),
   },
+  {
+    path: 'projects',
+    loadComponent: () => import('./pages/projects/projects').then((m) => m.ProjectsPage),
+    title: 'Projects — Othniel Aryee',
+  },
   { path: '**', redirectTo: '' },
 ];

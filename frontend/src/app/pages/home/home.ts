@@ -1,9 +1,11 @@
 import { Component, DestroyRef, afterNextRender, computed, inject, signal } from '@angular/core';
+import { RouterLink } from '@angular/router';
 import { HeroScene } from './hero-scene';
 import { SiteFooter } from '../../layout/site-footer';
 import { SiteHeader } from '../../layout/site-header';
 import { Arrow } from '../../shared/arrow';
 import { ExperienceSummary } from '../../shared/experience-summary';
+import { ProjectCard } from '../../shared/project-card';
 import { Reveal } from '../../core/reveal.directive';
 import { ProfileService } from '../../core/profile.service';
 
@@ -11,7 +13,7 @@ const GREETING_MS = 5_000;
 const ERASE_MS = 500;
 
 @Component({
-  imports: [HeroScene, Reveal, ExperienceSummary, SiteHeader, SiteFooter, Arrow],
+  imports: [HeroScene, Reveal, ExperienceSummary, ProjectCard, RouterLink, SiteHeader, SiteFooter, Arrow],
   host: { '(click)': 'onAnchorClick($event)' },
   selector: 'app-home',
   templateUrl: './home.html',

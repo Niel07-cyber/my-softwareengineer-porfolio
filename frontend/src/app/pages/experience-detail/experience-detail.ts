@@ -21,10 +21,10 @@ import { slug } from '../../shared/slug';
       @if (e) {
         <section class="hero">
           <div class="container">
-            <a routerLink="/experience" class="hero__back"><app-arrow dir="left" tone="light" />All work experience</a>
+            <a routerLink="/experience" class="split-btn split-btn--sm split-btn--back hero__back"><app-arrow dir="left" tone="light" /><span class="split-btn__label">All work experience</span></a>
 
             <div class="hero__row">
-              <div class="hero__frame">
+              <div class="hero__frame" [class.hero__frame--wide]="e.company.startsWith('Alstom')">
                 @if (e.logo) {
                   <img [src]="e.logo" [alt]="e.company + ' logo'" />
                 } @else {
@@ -34,6 +34,9 @@ import { slug } from '../../shared/slug';
 
               <div>
                 <h1>{{ e.company }}</h1>
+                @if (e.fullName) {
+                  <p class="hero__full">{{ e.fullName }}</p>
+                }
                 @if (e.role) {
                   <p class="hero__role">{{ e.role }}</p>
                 }
@@ -53,7 +56,10 @@ import { slug } from '../../shared/slug';
                     <li class="now"><i></i>Current role</li>
                   }
                   @if (e.kind === 'lab') {
-                    <li class="pill pill--soft">Research lab</li>
+                    <li class="pill pill--soft">{{ e.tag ?? 'Research lab' }}</li>
+                  }
+                  @if (e.employment) {
+                    <li class="pill pill--soft">{{ e.employment }}</li>
                   }
                 </ul>
               </div>
@@ -119,7 +125,7 @@ import { slug } from '../../shared/slug';
       } @else {
         <section class="hero">
           <div class="container">
-            <a routerLink="/experience" class="hero__back"><app-arrow dir="left" tone="light" />All work experience</a>
+            <a routerLink="/experience" class="split-btn split-btn--sm split-btn--back hero__back"><app-arrow dir="left" tone="light" /><span class="split-btn__label">All work experience</span></a>
             <h1>Not found</h1>
             <p class="hero__role">I couldn't find that place on my experience list.</p>
           </div>
@@ -137,9 +143,7 @@ import { slug } from '../../shared/slug';
       color: var(--white);
       padding-block: clamp(2rem, 5vw, 3.5rem);
     }
-    .hero__back { display: inline-flex; align-items: center; gap: 0.6rem; margin-bottom: 1.5rem; --arrow-size: 2rem; color: rgba(255, 255, 255, 0.7); font-weight: 500; }
-    .hero__back:hover { color: var(--white); }
-    .hero__back:hover app-arrow { --arrow-bg: var(--coral); --arrow-fg: var(--white); --arrow-nudge: 3px; }
+    .hero__back { margin-bottom: 1.5rem; }
     .hero__row { display: flex; align-items: center; gap: clamp(1.25rem, 3vw, 2rem); flex-wrap: wrap; }
     .hero__frame {
       display: grid; place-items: center; width: 112px; aspect-ratio: 1; flex: none;
@@ -147,11 +151,13 @@ import { slug } from '../../shared/slug';
       background: linear-gradient(var(--white), var(--white)) padding-box, linear-gradient(135deg, var(--coral), #6b65c4) border-box;
     }
     .hero__frame img { max-width: 70%; max-height: 62%; width: auto; height: auto; object-fit: contain; display: block; }
+    .hero__frame--wide img { max-width: 88%; }
     .hero__mark {
       display: grid; place-items: center; width: 58%; aspect-ratio: 1; border-radius: 18px;
       background: linear-gradient(135deg, #4a43a0, var(--indigo)); color: var(--white); font: 800 1.2rem var(--font-heading);
     }
     h1 { margin: 0; font-size: clamp(2rem, 4.5vw, 3rem); font-weight: 800; }
+    .hero__full { margin: 0.25rem 0 0; color: rgba(255, 255, 255, 0.7); font-size: 0.95rem; }
     .hero__role { margin: 0.35rem 0 0; color: var(--coral); font: 700 clamp(1.05rem, 2vw, 1.4rem) var(--font-heading); }
     .hero__meta { display: flex; flex-wrap: wrap; align-items: center; gap: 0.6rem 1rem; margin-top: 1rem; color: rgba(255, 255, 255, 0.8); font-size: 0.95rem; }
     .hero__meta li { display: inline-flex; align-items: center; gap: 0.35rem; }
