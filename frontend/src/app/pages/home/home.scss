@@ -2,7 +2,7 @@
   background: radial-gradient(circle at 80% 20%, #4a43a0 0%, var(--indigo) 45%, var(--indigo-deep) 100%);
   color: var(--white);
   position: relative;
-  padding-block: clamp(1.5rem, 3vw, 2.5rem) clamp(5rem, 7vw, 6rem);
+  padding-block: calc(clamp(1.5rem, 3vw, 2.5rem) + var(--nav-space)) clamp(5rem, 7vw, 6rem);
   overflow: hidden;
 
   &__inner { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: center; }
@@ -94,10 +94,6 @@
 }
 
 @keyframes wheel { 0% { transform: translateY(0); opacity: 1; } 70%, 100% { transform: translateY(12px); opacity: 0; } }
-@media (max-width: 600px) {
-  .timeline .timeline__card { flex-direction: column; align-items: flex-start; }
-  .timeline__badge { position: static; order: -1; }
-}
 
 @media (max-width: 900px) { .scroll { display: none; } }
 
@@ -117,6 +113,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .status__caret, .scroll__mouse i { animation: none; }
+  .cta__title span { transition: none; }
 }
 
 .section {
@@ -162,7 +159,7 @@
     position: relative;
     isolation: isolate;
     margin: 0;
-    width: clamp(130px, 14vw, 180px);
+    width: clamp(170px, 21vw, 270px);
     aspect-ratio: 1;
     border-radius: 50%;
     padding: 4px;
@@ -317,6 +314,15 @@
   padding-block: clamp(3.5rem, 8vw, 5.5rem);
 
   h2 { font-size: clamp(1.8rem, 4vw, 2.75rem); }
+  // both questions share one grid cell, so the section never changes height when they swap
+  &__title { display: grid; justify-items: center; }
+  &__title span {
+    grid-area: 1 / 1;
+    opacity: 0;
+    transform: translateY(10px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    &.on { opacity: 1; transform: none; }
+  }
   p { color: rgba(255, 255, 255, 0.8); margin: 0.75rem 0 2rem; }
 }
 
@@ -358,3 +364,14 @@
 
 
 .section__more { display: flex; justify-content: center; margin-top: 2rem; }
+
+// tablets: leave room above the card body so the badge can't sit on the title
+@media (max-width: 900px) {
+  .timeline__card:has(.timeline__badge) { padding-top: 3.4rem; }
+}
+
+// narrow screens: the card stacks, and the badge sits above the logo instead of on top of it
+@media (max-width: 600px) {
+  .timeline .timeline__card { flex-direction: column; align-items: flex-start; }
+  .timeline .timeline__badge { position: static; order: -1; }
+}

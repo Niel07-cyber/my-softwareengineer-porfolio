@@ -7,6 +7,11 @@ export interface Project {
   year?: string;
   featured?: boolean;
   image?: string;
+  imageBg?: string;
+  role?: string;
+  overview?: string;
+  features?: string[];
+  live?: string;
 }
 
 export interface Experience {
@@ -44,6 +49,7 @@ export interface Profile {
   socials: { label: string; url: string }[];
   stats: { value: string; label: string }[];
   skills: { group: string; items: string[] }[];
+  allSkills: { group: string; items: string[] }[]; // the full list, shown on the Skills page
   experience: Experience[];
   education: Education[];
   projects: Project[];
@@ -56,9 +62,9 @@ export const profile: Profile = {
     'I design and build fast, scalable web applications — from polished Angular interfaces to robust NestJS APIs.',
   email: 'aryeeothniel07@gmail.com',
   socials: [
-    { label: 'GitHub', url: 'https://github.com/' },
-    { label: 'LinkedIn', url: 'https://linkedin.com/' },
-    { label: 'Instagram', url: 'https://www.instagram.com/' },
+    { label: 'GitHub', url: 'https://github.com/Niel07-cyber' },
+    { label: 'LinkedIn', url: 'https://www.linkedin.com/in/othniel-aryee-9501a0239/' },
+    { label: 'Instagram', url: 'https://www.instagram.com/aryee07/' },
   ],
   stats: [
     { value: '3+', label: 'Years of experience' },
@@ -69,6 +75,17 @@ export const profile: Profile = {
     { group: 'Frontend', items: ['Angular', 'TypeScript', 'RxJS', 'SCSS'] },
     { group: 'Backend', items: ['NestJS', 'Node.js', 'REST', 'GraphQL'] },
     { group: 'Data & DevOps', items: ['PostgreSQL', 'MongoDB', 'Docker', 'CI/CD'] },
+  ],
+  allSkills: [
+    { group: 'Programming Languages', items: ['Python', 'JavaScript', 'TypeScript', 'Java', 'SQL', 'Bash / Shell', 'HTML5', 'CSS3'] },
+    { group: 'Frontend', items: ['Angular', 'React', 'Next.js', 'Vue.js', 'RxJS', 'SCSS', 'Tailwind CSS', 'Material UI', 'ShadCN UI', 'Bootstrap', 'Zod'] },
+    { group: 'Backend & APIs', items: ['NestJS', 'Node.js', 'Express.js', 'FastAPI', 'Django', 'Flask', 'TypeORM', 'REST APIs', 'GraphQL'] },
+    { group: 'Databases & Messaging', items: ['PostgreSQL', 'SQLite', 'MongoDB', 'Redis', 'Pub/Sub', 'EventEmitter'] },
+    { group: 'Cloud & DevOps', items: ['Azure', 'AWS', 'Terraform (IaC)', 'Docker', 'Kubernetes', 'Nginx', 'CI/CD', 'Linux (Debian, Ubuntu)', 'Git / GitHub', 'cURL', 'jq'] },
+    { group: 'Data & AI', items: ['Apache Airflow', 'ETL Pipelines', 'Data Preprocessing', 'TensorFlow', 'Keras', 'PyTorch', 'LightGBM', 'Scikit-learn', 'OpenCV', 'Pillow', 'CNNs', 'Grad-CAM', 'Data Augmentation', 'NumPy', 'Pandas'] },
+    { group: 'Architecture & Security', items: ['Microservices', 'Event-Driven Architecture', 'Domain-Driven Design (DDD)', 'Full-Stack Systems', 'OAuth2 (PKCE)', 'JWT', 'JWKS', 'TOTP', 'RBAC / ABAC'] },
+    { group: 'Testing & Workflow', items: ['Jest', 'Pytest', 'Supertest', 'Cypress', 'E2E / Unit Testing', 'Debugging', 'Code Review', 'Agile / Scrum'] },
+    { group: 'Tools & Monitoring', items: ['Swagger / OpenAPI', 'Postman', 'Sentry', 'Prometheus', 'Grafana'] },
   ],
   experience: [
     {
@@ -180,12 +197,13 @@ export const profile: Profile = {
     },
   ],
   projects: [
-    { title: 'Project One', description: 'A short description of what this project does and the problem it solves.', tags: ['Angular', 'NestJS'], link: '#', category: 'Web', year: '2026', featured: true },
-    { title: 'Project Two', description: 'A short description of what this project does and the problem it solves.', tags: ['TypeScript', 'PostgreSQL'], link: '#', category: 'Backend', year: '2025' },
-    { title: 'Project Three', description: 'A short description of what this project does and the problem it solves.', tags: ['Docker', 'AWS'], link: '#', category: 'Cloud', year: '2025' },
-    { title: 'Project Four', description: 'A short description of what this project does and the problem it solves.', tags: ['Python', 'TensorFlow'], link: '#', category: 'AI', year: '2025' },
-    { title: 'Project Five', description: 'A short description of what this project does and the problem it solves.', tags: ['React', 'Next.js'], link: '#', category: 'Web', year: '2024' },
-    { title: 'Project Six', description: 'A short description of what this project does and the problem it solves.', tags: ['Airflow', 'PostgreSQL'], link: '#', category: 'Data', year: '2026' },
-    { title: 'Project Seven', description: 'A short description of what this project does and the problem it solves.', tags: ['Flask', 'PyTorch'], link: '#', category: 'AI', year: '2025' },
+    { title: 'EventX', image: '/projects/eventx.svg', imageBg: '#f86b49', description: 'A multi-tier event management platform on Azure, with all of its infrastructure defined as code.', tags: ['Azure', 'Terraform', 'Docker', 'Nginx', 'Node.js', 'Express', 'React', 'TypeScript', 'MSSQL'], link: '#', category: 'Cloud', featured: true },
+    { title: 'ScribeEngine', image: '/projects/scribeengine.svg', imageBg: '#f4efe6', description: 'An event-driven REST API built with domain-driven design and a role-based post lifecycle.', tags: ['NestJS', 'TypeScript', 'TypeORM', 'SQLite', 'EventEmitter2', 'JWT', 'Jest', 'Swagger'], link: '#', category: 'Backend' },
+    { title: 'JuniaDrive', image: '/projects/juniadrive.svg', imageBg: '#0e7c86', description: 'A cloud storage platform with per-user quotas and live file previews.', tags: ['Django', 'Django REST Framework', 'React', 'Material UI', 'Docker', 'SQLite'], link: '#', category: 'Full Stack' },
+    { title: 'Library Engine', image: '/projects/library-engine.svg', imageBg: '#f2b632', description: 'A modular catalog API with a React front-end and full endpoint test coverage.', tags: ['NestJS', 'TypeORM', 'React', 'TypeScript', 'SQLite', 'Swagger', 'Jest', 'Supertest'], link: '#', category: 'Full Stack' },
+    { title: 'Multi-Agent Simulation Engine', image: '/projects/multi-agent-simulation-engine.svg', imageBg: '#0f1226', description: 'A 2D discrete simulation in Java where competing populations share limited energy.', tags: ['Java', 'OOP Design Patterns', 'UML', 'Polymorphism', 'Concurrency'], link: '#', category: 'Systems' },
+    { title: 'Crossref CLI', image: '/projects/crossref-cli.svg', imageBg: '#0a0f0d', description: 'A Linux command-line tool for searching scientific research through the Crossref API.', tags: ['Bash', 'Linux', 'REST API', 'cURL', 'jq', 'Rofi', 'Shell Scripting'], link: '#', category: 'Tools' },
+    { title: 'Histopathology AI', image: '/projects/histopathology-ai.svg', imageBg: '#1b1030', description: 'A deep-learning model that classifies cancer in more than 555,000 histopathology images, with heatmaps to explain its calls.', tags: ['TensorFlow', 'Keras', 'Python', 'OpenCV', 'Scikit-learn', 'Grad-CAM'], link: '#', category: 'AI' },
+    { title: 'PneumoniaAI', image: '/projects/pneumoniaai.svg', imageBg: '#0b2a3a', description: 'A medical detection app that reads chest X-rays and shows a live pneumonia prediction with its confidence score.', tags: ['FastAPI', 'Next.js 15', 'TensorFlow', 'Keras', 'Python', 'Pillow', 'Swagger'], link: '#', category: 'AI' },
   ],
 };

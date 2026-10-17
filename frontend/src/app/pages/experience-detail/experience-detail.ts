@@ -141,7 +141,7 @@ import { slug } from '../../shared/slug';
     .hero {
       background: radial-gradient(circle at 80% 20%, #4a43a0 0%, var(--indigo) 45%, var(--indigo-deep) 100%);
       color: var(--white);
-      padding-block: clamp(2rem, 5vw, 3.5rem);
+      padding-block: calc(clamp(2rem, 5vw, 3.5rem) + var(--nav-space)) clamp(2rem, 5vw, 3.5rem);
     }
     .hero__back { margin-bottom: 1.5rem; }
     .hero__row { display: flex; align-items: center; gap: clamp(1.25rem, 3vw, 2rem); flex-wrap: wrap; }

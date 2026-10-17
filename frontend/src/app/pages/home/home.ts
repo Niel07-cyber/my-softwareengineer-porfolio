@@ -6,14 +6,16 @@ import { SiteHeader } from '../../layout/site-header';
 import { Arrow } from '../../shared/arrow';
 import { ExperienceSummary } from '../../shared/experience-summary';
 import { ProjectCard } from '../../shared/project-card';
+import { TechWall } from '../../shared/tech-wall';
 import { Reveal } from '../../core/reveal.directive';
 import { ProfileService } from '../../core/profile.service';
 
 const GREETING_MS = 5_000;
 const ERASE_MS = 500;
+const CTA_MS = 5_000;
 
 @Component({
-  imports: [HeroScene, Reveal, ExperienceSummary, ProjectCard, RouterLink, SiteHeader, SiteFooter, Arrow],
+  imports: [HeroScene, Reveal, ExperienceSummary, ProjectCard, TechWall, RouterLink, SiteHeader, SiteFooter, Arrow],
   host: { '(click)': 'onAnchorClick($event)' },
   selector: 'app-home',
   templateUrl: './home.html',
@@ -39,6 +41,10 @@ export class Home {
     return { main, second };
   });
   protected readonly photoMissing = signal(false);
+
+  // the closing headline swaps between two questions every few seconds
+  protected readonly ctaTitles = ['Have a project in mind?', 'Want to hire me?'];
+  protected readonly ctaIndex = signal(0);
 
 
   /**
@@ -66,6 +72,9 @@ export class Home {
   constructor() {
     const destroyRef = inject(DestroyRef);
     afterNextRender(() => {
+      const swap = setInterval(() => this.ctaIndex.update((i) => (i + 1) % this.ctaTitles.length), CTA_MS);
+      destroyRef.onDestroy(() => clearInterval(swap));
+
       const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
       let timer: ReturnType<typeof setTimeout>;
       let stopped = false;
