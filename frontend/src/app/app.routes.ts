@@ -17,5 +17,19 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/projects/projects').then((m) => m.ProjectsPage),
     title: 'Projects — Othniel Aryee',
   },
+  {
+    path: 'projects/:slug',
+    loadComponent: () => import('./pages/project-detail/project-detail').then((m) => m.ProjectDetailPage),
+  },
+  {
+    path: 'resume',
+    loadComponent: () => import('./pages/resume/resume').then((m) => m.ResumePage),
+    title: 'Resume — Othniel Aryee',
+  },
+  {
+    path: 'skills',
+    loadComponent: () => import('./pages/skills/skills').then((m) => m.SkillsPage),
+    title: 'Skills & tools — Othniel Aryee',
+  },
   { path: '**', redirectTo: '' },
 ];
